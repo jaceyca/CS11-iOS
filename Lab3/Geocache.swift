@@ -49,18 +49,23 @@ struct GeoCache {
 }
 
 func loadCachesFromDefaults() -> [GeoCache] {
-    let defaults = UserDefaults.standard.array(forKey: "caches")
     var geocaches: [GeoCache] = []
-    for i in defaults! {
-        if let geo = i as? [String: String] {
-            geocaches.append(GeoCache(fromDictionary: geo)!)
+    if let defaults = UserDefaults.standard.array(forKey: "caches") {
+        for i in defaults {
+            let geo = i as! [String: String]
+            geocaches.append(GeoCache (fromDictionary: geo)!)
         }
     }
     return geocaches
 }
 
 func saveCachesToDefaults(_ caches: [GeoCache]) {
-    UserDefaults.standard.set(caches, forKey:"caches")
+    var cacheDict : [[String: String]] = []
+    for i in caches {
+        let geo = i.dictionary as [String: String]
+        cacheDict.append(geo)
+    }
+    UserDefaults.standard.set(cacheDict, forKey:"caches")
     UserDefaults.standard.synchronize()
 }
 

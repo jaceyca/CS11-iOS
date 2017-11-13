@@ -25,7 +25,7 @@ class ViewController: UIViewController {
         let creator = creatorField.text
         let reward = rewardField.text
         
-        if titleField.text == "" || detailField.text == "" || creatorField.text == "" || rewardField.text == "" {
+        if title == "" || details == "" || creator == "" || reward == "" {
             cacheLabel.text = "All fields need to be filled."
         } else {
             let dict: [String: String] = ["title": title!, "details": details!, "creator": creator!, "reward": reward!]
@@ -42,8 +42,10 @@ class ViewController: UIViewController {
         if counter >= Geocaches.count {
             counter = 0
         }
-        let geocache = Geocaches[counter]
-        cacheLabel.text = geocache.description
+        if Geocaches.count > 0 {
+            let geocache = Geocaches[counter]
+            cacheLabel.text = geocache.description
+        }
     }
     
     
